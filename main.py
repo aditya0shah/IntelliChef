@@ -1,4 +1,5 @@
 from flask import Flask
+from recipe_generation import create_recipe
 
 app = Flask(__name__)
 
