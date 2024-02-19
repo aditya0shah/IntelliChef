@@ -24,7 +24,6 @@ def create_recipe(ingrediants: str):
     ]
     )
     print(response.choices[0].message.content)
-    print(response.choices[0].message.content["recipe1"])
     # for recipe in response.choices[0].message.content:
     #     recipe_image(recipe)
     return response.choices[0].message.content

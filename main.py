@@ -21,7 +21,7 @@ def home_page():
             response = modify_recipe(query)
         if data["form_type"] == "generate":
             ingredients = ", ".join(data["ingredients"])
-            response = create_recipe(ingredients)
+            response, images = create_recipe(ingredients)
         return jsonify({"response": response})
     return render_template("index.html")
 

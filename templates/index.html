@@ -151,14 +151,19 @@
 	    var xhr = new XMLHttpRequest();
     	    xhr.open("POST", "/home", true);
    	    xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                displayRecipes(JSON.parse(xhr.responseText));
+            }
+        }
     	    xhr.send(JSON.stringify(data));
-            const recipes = [
-                "Chicken Stir-Fry",
-                "Broccoli and Cheese Stuffed Chicken Breast",
-                "Rice Pilaf"
-            ];
+            // const recipes = [
+            //     "Chicken Stir-Fry",
+            //     "Broccoli and Cheese Stuffed Chicken Breast",
+            //     "Rice Pilaf"
+            // ];
 
-            displayRecipes(recipes);
+            // displayRecipes(recipes);
         }
 
         function displayRecipes(recipes) {
@@ -167,14 +172,27 @@
             if (recipes.length === 0) {
                 recipeResults.innerHTML += "<p>No recipes found.</p>";
             } else {
-                const ul = document.createElement("ul");
-                recipes.forEach(function(recipe) {
-                    const li = document.createElement("li");
-                    li.textContent = recipe;
-                    li.href = "Insert link code here";
-                    ul.appendChild(li);
-                });
-                recipeResults.appendChild(ul);
+                // const ul = document.createElement("ul");
+                for (const key in recipes) {
+                    const recipe = recipes[key];
+                    const li = document.createElement("button");
+                    li.textContent = recipe.name;
+                    li.classList.add("collapsible");
+                    li.addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight){
+            content.style.maxHeight = null;
+            } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            } 
+        });
+                    recipeResults.appendChild(li);
+                    const content = document.createElement("button");
+                    content.classList.add("content");
+                    content.textContent = recipe.instructions[0];
+                }
+                // recipeResults.appendChild(ul);
             }
         }
     </script>
