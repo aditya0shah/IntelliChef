@@ -1,9 +1,7 @@
 from pinecone import Pinecone
 from dotenv import load_dotenv
 import os
-from langchain_community.vectorstores import pinecone
 from langchain_community.embeddings import OpenAIEmbeddings
-from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import requests
 import re
@@ -91,8 +89,9 @@ def modify_recipe(query:str):
         text_value = match["metadata"]["text"]  
         texts.append(text_value)
 
-    generate_recipes(texts, query)
-    print(texts)
+    return generate_recipes(texts, query)
+    # print(texts)
+    
 
 def generate_recipes(contents: list[str], query:str):
     response = client.chat.completions.create(
@@ -104,11 +103,12 @@ def generate_recipes(contents: list[str], query:str):
     {"role": "user", "content": query}
     ]
     )
-    print(response.choices[0].message.content)
+    # print(response.choices[0].message.content)
+    return response.choices[0].message.content
 
 url = 'https://www.indianhealthyrecipes.com/paneer-tikka-on-stove-top/'
 
 # website_content = upload_url(url)
-#modify_recipe("Replace the paneer with tofu")
+modify_recipe("Replace the paneer with tofu")
 
 
