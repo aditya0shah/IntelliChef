@@ -4,7 +4,6 @@ import os
 import requests
 import re
 import json
-from bs4 import BeautifulSoup
 
 load_dotenv()  
 
