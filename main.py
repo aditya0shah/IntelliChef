@@ -4,12 +4,24 @@ import datetime
 import os
 import base64
 from io import BytesIO
+from tools.recipe_modifier import upload_url, modify_recipe
+from tools.recipe_generation import create_recipe
 
 app = Flask(__name__)
 
 @app.route("/")
-@app.route("/home")
+@app.route("/home", methods=["GET", "POST"])
 def home_page():
+    if request.method == 'POST':
+        form_type = request.form.get("form_type")
+        if form_type == "modify":
+            recipe_url = request.form.get("recipe_url")
+            query = request.form.get("query")
+            upload_url(recipe_url)
+            print(modify_recipe(query))
+        if form_type == "generate":
+            ingredients = request.form.get("ingredients")
+            print(create_recipe(ingredients))
     return render_template("index.html")
 
 @app.route("/camera", methods=["GET", "POST"])
