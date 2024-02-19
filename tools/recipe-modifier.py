@@ -9,13 +9,14 @@ import requests
 import re
 from bs4 import BeautifulSoup
 import tiktoken
+from openai import OpenAI
 
 load_dotenv()  
 pinecone_index = "emp-2024"
 namespace = "recipes"
 pinecone_api_key = os.getenv("PINECONE_API_KEY")
 openai_api_key = os.getenv("OPENAI_API_KEY")
-
+client = OpenAI(api_key=openai_api_key)
 embeddings = OpenAIEmbeddings(openai_api_type=openai_api_key)
 pc = Pinecone(api_key = pinecone_api_key)
 index = pc.Index(pinecone_index)
@@ -73,20 +74,36 @@ def upload_url(url: str):
 
 def modify_recipe(query:str):
     embed_vector = embeddings.embed_query(query)
-    result = index.query(
+    query_response = index.query(
         namespace=namespace, 
         vector=embed_vector,
-        top_k=10,
+        top_k=8,
         include_values=True,
         include_metadata=True
     )
-    texts=[]
-    for item in result:
-        text = item['metadata']['text']
-        texts.append(text)
-        print(text)
-    
+    matches = query_response["matches"]
+    print(matches)
+    texts = []
+    for match in matches:
+        # print(match)
+        result_id = match["id"]
+        similarity_score = match["score"]
+        text_value = match["metadata"]["text"]  
+        texts.append(text_value)
 
+    generate_recipes(texts, query)
+    print(texts)
+
+def generate_recipes(contents: list[str], query:str):
+    response = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[
+    {"role": "system", "content": f"""You are a helpful smart home cook. You have the following premade recipe {contents}. 
+     You will take this recipe and adjust it based on the user's needs. Give a detailed recipe which the user can easily follow to cook."""},
+    {"role": "user", "content": query}
+    ]
+    )
+    print(response.choices[0].message.content)
 
 url = 'https://www.indianhealthyrecipes.com/paneer-tikka-on-stove-top/'
 
