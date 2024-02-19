@@ -42,6 +42,7 @@
   transition: max-height 0.2s ease-out;
   background-color: #f1f1f1;
   width:100%;
+  text-align: left;
 }
         body {
             font-family: Arial, sans-serif;
@@ -229,7 +230,10 @@
                     recipeResults.appendChild(li);
                     const content = document.createElement("button");
                     content.classList.add("content");
-                    content.innerHTML += "<br>";
+                    content.innerHTML += "<br>Ingredients: <br>";
+                    for(const ingredient in recipe.ingredients) {
+                        content.innerHTML += "- " + recipe.ingredients[ingredient] + " " + ingredient + "<br>";
+                    }
                     recipe.instructions.forEach(function(value) {
                         content.innerHTML += value + "<br>";
                     });
