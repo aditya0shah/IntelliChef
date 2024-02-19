@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import os
 import requests
 import re
+import json
 from bs4 import BeautifulSoup
 
 load_dotenv()  
@@ -27,12 +28,36 @@ def create_recipe(ingrediants: str):
                    'ingredients':{'ingredient1': Amount Needed,
                                  'ingredient2': Amount Needed, etc. },
                     'instructions': [Insert Instruction 1, Insert Instruction 2, Insert Instruction 3, etc.] 
-        }
+        }, 'recipe2': {'name': Insert Name Here, 'calories': Insert Calorie Count Here, 
+                   'dietary_restrictions':[restriction1, restriction2, restriction3, etc.], 
+                   'ingredients':{'ingredient1': Amount Needed,
+                                 'ingredient2': Amount Needed, etc. },
+                    'instructions': [Insert Instruction 1, Insert Instruction 2, Insert Instruction 3, etc.] 
+        }, etc.
      } """},
     {"role": "user", "content": ingrediants}
     ]
     )
-    print(response.choices[0].message.content);
+    r = response.choices[0].message.content
+    r = json.loads(r)
+    imgs = []
+    imgs.append(recipe_image(r["recipe1"]["name"]))
+    imgs.append(recipe_image(r["recipe2"]["name"]))
+    imgs.append(recipe_image(r["recipe3"]["name"]))
+    imgs.append(recipe_image(r["recipe4"]["name"]))
+    # for recipe in response.choices[0].message.content:
+    #     recipe_image(recipe)
+    return response.choices[0].message.content, imgs
 
+def recipe_image(name:str):
+    
+    response = client.images.generate(
+        model="dall-e-2",
+        prompt=name,
+        n=1,
+    )
+    return response.data[0].url
+    # print(f"response {response} \n")
+    # print(f"image_url {response.data[0].url}")
 
-print(create_recipe("Sugar, Salt, Tomato, Butter, Paneer, Onion"))
+# create_recipe("Bacon, Salt, Tomato, Paneer, Onion, Sugar, Milk, Coca Cola") 
