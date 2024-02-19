@@ -99,7 +99,8 @@ def generate_recipes(contents: list[str], query:str):
     model="gpt-3.5-turbo",
     messages=[
     {"role": "system", "content": f"""You are a helpful smart home cook. You have the following premade recipe {contents}. 
-     You will take this recipe and adjust it based on the user's needs. Give a detailed recipe which the user can easily follow to cook."""},
+     You will take this recipe and adjust it based on the user's needs. Give a detailed recipe which the user can easily follow to cook. Output to the user in
+     a clear and concise format."""},
     {"role": "user", "content": query}
     ]
     )
@@ -108,6 +109,6 @@ def generate_recipes(contents: list[str], query:str):
 url = 'https://www.indianhealthyrecipes.com/paneer-tikka-on-stove-top/'
 
 # website_content = upload_url(url)
-modify_recipe("Replace the paneer with tofu")
+#modify_recipe("Replace the paneer with tofu")
 
 
