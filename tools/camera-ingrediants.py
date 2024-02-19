@@ -24,7 +24,7 @@ def get_ingrediants_from_pic(image_path:str):
       {
         "role": "user",
         "content": [
-          {"type": "text", "text": "Name every ingredient you see in this image. "},
+          {"type": "text", "text": "List every food item you see in this image. "},
           {
             "type": "image_url",
             "image_url": {
@@ -33,7 +33,8 @@ def get_ingrediants_from_pic(image_path:str):
           },
         ],
       }
-    ]
+    ],
+    max_tokens=1000
   )
   return response
-print(get_ingrediants_from_pic("../files/source-pics/fridge3.jpeg"))
+print(get_ingrediants_from_pic(os.path.join(os.path.dirname(__file__), '../files/source-pics/pantry1.jpg')).choices[0].message.content)
