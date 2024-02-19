@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import os
 import requests
 import re
+import json
 from bs4 import BeautifulSoup
 
 load_dotenv()  
@@ -23,10 +24,16 @@ def create_recipe(ingrediants: str):
     {"role": "user", "content": ingrediants}
     ]
     )
-    print(response.choices[0].message.content)
+    r = response.choices[0].message.content
+    r = json.loads(r)
+    imgs = []
+    imgs.append(recipe_image(r["recipe1"]["name"]))
+    imgs.append(recipe_image(r["recipe2"]["name"]))
+    imgs.append(recipe_image(r["recipe3"]["name"]))
+    imgs.append(recipe_image(r["recipe4"]["name"]))
     # for recipe in response.choices[0].message.content:
     #     recipe_image(recipe)
-    return response.choices[0].message.content
+    return response.choices[0].message.content, imgs
 
 def recipe_image(name:str):
     
@@ -35,8 +42,8 @@ def recipe_image(name:str):
         prompt=name,
         n=1,
     )
+    return response.data[0].url
+    # print(f"response {response} \n")
+    # print(f"image_url {response.data[0].url}")
 
-    print(f"response {response} \n")
-    print(f"image_url {response.data[0].url}")
-
-# print(create_recipe("Sugar, Salt, Tomato, Butter, Paneer, Onion"))
+create_recipe("Sugar, Salt, Tomato, Butter, Paneer, Onion") 
