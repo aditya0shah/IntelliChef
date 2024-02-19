@@ -75,15 +75,21 @@
     <div class="container" style="background-color:#0F0F0F;">
         <h1 style="color:#008170">Recipe Finder</h1>
         <form id="recipeForm">
-            <label for="ingredients" style="color:#008170">Enter an ingredient:</label><br>
-            <input type="text" id="ingredients" name="ingredients" placeholder="Press Enter to add an ingredient" style="background-color:#0F0F0F">
+            <label for="ingredients" style="color:#008170">Enter an ingredient:</label><br><br>
+            <input type="text" id="ingredients" name="ingredients" placeholder="Press Enter to add an ingredient" style="background-color:#0F0F0F; color:#F9F9F9">
+<br><br>
             <input type="button" id="getRecipes" name="getRecipes" value="Get Recipes!" class="button" style="background-color:#008170" onclick="fetchRecipes()"> 
+<br><br>
         </form>
         <form id="urlForm">
             <label for="website" style="color:#008170">Would you like to modify an existing recipe?</label>
-            <input type="text" id="website" name="website" placeholder="Enter a URL to a recipe you would like to modify" style="background-color:#0F0F0F">
+	<br><br>
+            <input type="text" id="website" name="website" placeholder="Enter a URL to a recipe you would like to modify" style="background-color:#0F0F0F; color:#F9F9F9">
+<br><br>
             <label for="mods" style="color:#008170">What modifications would you like to make?</label>
-            <input type="text" id="mods" name="mods" placeholder="Enter a short description of your modifications here" style="background-color:#0F0F0F">
+<br><br>
+            <input type="text" id="mods" name="mods" placeholder="Enter a short description of your modifications here" style="background-color:#0F0F0F; color:#F9F9F9">
+<br><br>
             <input type="button" id="modify" name="modify" value="Modify!" class="button" style="background-color:#008170" onclick="modifyG()">
         </form>
         <div id="ingredientList" style:"color:#008170"></div>
