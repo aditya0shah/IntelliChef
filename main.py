@@ -1,4 +1,4 @@
-# from recipe_generation import create_recipe
+from recipe_generation import create_recipe
 from flask import Flask, render_template, request, send_from_directory
 from PIL import Image
 import datetime
