@@ -23,8 +23,21 @@ def create_recipe(ingrediants: str):
     {"role": "user", "content": ingrediants}
     ]
     )
-    # print(response.choices[0].message.content)
+    print(response.choices[0].message.content)
+    print(response.choices[0].message.content["recipe1"])
+    # for recipe in response.choices[0].message.content:
+    #     recipe_image(recipe)
     return response.choices[0].message.content
 
+def recipe_image(name:str):
+    
+    response = client.images.generate(
+        model="dall-e-2",
+        prompt=name,
+        n=1,
+    )
+
+    print(f"response {response} \n")
+    print(f"image_url {response.data[0].url}")
 
 # print(create_recipe("Sugar, Salt, Tomato, Butter, Paneer, Onion"))
