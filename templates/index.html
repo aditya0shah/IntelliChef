@@ -110,6 +110,16 @@
         });
         function modifyG() {
             //go to backend for mods
+	    data = {
+		    url: "",
+		    query: ""
+	    };
+	    data.url = document.getElementById("website").value;
+	    data.query = document.getElementById("mods").value;
+	    var xhr = new XMLHttpRequest();
+    	    xhr.open("POST", "/home", true);
+   	    xhr.setRequestHeader("Content-Type", "application/json");
+    	    xhr.send(JSON.stringify(data));
             recipeResults.innerHTML += "<h6>INSERT RECIEVED RECIPES</h6>";
         }
         function addIngredient() {
@@ -130,6 +140,16 @@
             // You can implement the logic to fetch recipes based on the entered ingredient here
             // For demonstration purpose, I'm just showing a dummy result
             // Use ingredients list
+	    data = {
+		    ingredients: []
+	    };
+            ingredients.forEach(function(i) {
+	    	data.ingredients.push(i);
+	    });
+	    var xhr = new XMLHttpRequest();
+    	    xhr.open("POST", "/home", true);
+   	    xhr.setRequestHeader("Content-Type", "application/json");
+    	    xhr.send(JSON.stringify(data));
             const recipes = [
                 "Chicken Stir-Fry",
                 "Broccoli and Cheese Stuffed Chicken Breast",
@@ -141,6 +161,7 @@
 
         function displayRecipes(recipes) {
             recipeResults.innerHTML = "<h2>Recipes:</h2>";
+	    
             if (recipes.length === 0) {
                 recipeResults.innerHTML += "<p>No recipes found.</p>";
             } else {
