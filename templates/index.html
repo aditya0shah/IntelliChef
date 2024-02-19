@@ -5,6 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe Finder</title>
         <style>
+
+            
+.collapsible {
+  background-color: #008170;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color:#016658;
+}
+
+.collapsible:after {
+  content: '\002B';
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.content {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+  width:100%;
+}
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -153,7 +191,7 @@
    	    xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                displayRecipes(JSON.parse(xhr.responseText));
+                displayRecipes(JSON.parse(JSON.parse(xhr.responseText).response));
             }
         }
     	    xhr.send(JSON.stringify(data));
@@ -168,12 +206,13 @@
 
         function displayRecipes(recipes) {
             recipeResults.innerHTML = "<h2>Recipes:</h2>";
-	    
+            console.log(recipes);
             if (recipes.length === 0) {
                 recipeResults.innerHTML += "<p>No recipes found.</p>";
             } else {
                 // const ul = document.createElement("ul");
                 for (const key in recipes) {
+                    console.log(key);
                     const recipe = recipes[key];
                     const li = document.createElement("button");
                     li.textContent = recipe.name;
@@ -190,7 +229,12 @@
                     recipeResults.appendChild(li);
                     const content = document.createElement("button");
                     content.classList.add("content");
-                    content.textContent = recipe.instructions[0];
+                    content.innerHTML += "<br>";
+                    recipe.instructions.forEach(function(value) {
+                        content.innerHTML += value + "<br>";
+                    });
+                    content.innerHTML += "<br>";
+                    recipeResults.appendChild(content);
                 }
                 // recipeResults.appendChild(ul);
             }

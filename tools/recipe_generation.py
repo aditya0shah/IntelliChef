@@ -41,10 +41,10 @@ def create_recipe(ingrediants: str):
     r = response.choices[0].message.content
     r = json.loads(r)
     imgs = []
-    imgs.append(recipe_image(r["recipe1"]["name"]))
-    imgs.append(recipe_image(r["recipe2"]["name"]))
-    imgs.append(recipe_image(r["recipe3"]["name"]))
-    imgs.append(recipe_image(r["recipe4"]["name"]))
+    # imgs.append(recipe_image(r["recipe1"]["name"]))
+    # imgs.append(recipe_image(r["recipe2"]["name"]))
+    # imgs.append(recipe_image(r["recipe3"]["name"]))
+    # imgs.append(recipe_image(r["recipe4"]["name"]))
     # for recipe in response.choices[0].message.content:
     #     recipe_image(recipe)
     return response.choices[0].message.content, imgs
