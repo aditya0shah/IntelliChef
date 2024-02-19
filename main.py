@@ -43,7 +43,12 @@ def camera_view():
         file_path = os.path.join("files/", filename)
         img.save(file_path, 'PNG')
         error_message = 'Image successfully captured'
-        print(get_ingrediants_from_pic(file_path))
+        ingred_from_pic = get_ingrediants_from_pic(file_path)
+        print(ingred_from_pic)
+        response, images = create_recipe(ingred_from_pic)
+        return jsonify({"response": response})
+    
+
         # use if you want to display all the images in the folder
         # image_files = os.listdir(app.config['UPLOAD_FOLDER'])
         return render_template('camera_view.html', filename=filename)
