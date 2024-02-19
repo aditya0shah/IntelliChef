@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Finder</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body style="background-color:#0F0F0F;">
+    <div class="container" style="background-color:#0F0F0F;">
+        <h1 style="color:#008170">Recipe Finder</h1>
+        <form id="recipeForm">
+            <label for="ingredients" style="color:#008170">Enter an ingredient:</label><br>
+            <input type="text" id="ingredients" name="ingredients" placeholder="Press Enter to add an ingredient" style="background-color:#0F0F0F">
+            <input type="button" id="getRecipes" name="getRecipes" value="Get Recipes!" class="button" style="background-color:#008170" onclick="fetchRecipes()"> 
+        </form>
+        <form id="urlForm">
+            <label for="website" style="color:#008170">Would you like to modify an existing recipe?</label>
+            <input type="text" id="website" name="website" placeholder="Enter a URL to a recipe you would like to modify" style="background-color:#0F0F0F">
+            <label for="mods" style="color:#008170">What modifications would you like to make?</label>
+            <input type="text" id="mods" name="mods" placeholder="Enter a short description of your modifications here" style="background-color:#0F0F0F">
+            <input type="button" id="modify" name="modify" value="Modify!" class="button" style="background-color:#008170" onclick="modifyG()">
+        </form>
+        <div id="ingredientList" style:"color:#008170"></div>
+        <div id="recipeResults" style="color:#008170"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById("recipeForm");
+        const ingredientsInput = document.getElementById("ingredients");
+        const recipeResults = document.getElementById("recipeResults");
+        const ingredients = [];
+        count = 1;
+        ingredientsInput.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                addIngredient();
+            }
+        });
+        function modifyG() {
+            //go to backend for mods
+            recipeResults.innerHTML += "<h6>INSERT RECIEVED RECIPES</h6>";
+        }
+        function addIngredient() {
+            const ingredient = ingredientsInput.value.trim();
+            if (ingredient !== "") {
+                clearForm();
+                document.getElementById("ingredientList").innerHTML += "<p style='color:#008170'>" + count + ". " + ingredient + "</p>"
+                count += 1;
+                ingredients[count - 2] = ingredient;
+            }
+        }
+
+        function clearForm() {
+            form.reset();
+        }
+
+        function fetchRecipes() {
+            // You can implement the logic to fetch recipes based on the entered ingredient here
+            // For demonstration purpose, I'm just showing a dummy result
+            // Use ingredients list
+            const recipes = [
+                "Chicken Stir-Fry",
+                "Broccoli and Cheese Stuffed Chicken Breast",
+                "Rice Pilaf"
+            ];
+
+            displayRecipes(recipes);
+        }
+
+        function displayRecipes(recipes) {
+            recipeResults.innerHTML = "<h2>Recipes:</h2>";
+            if (recipes.length === 0) {
+                recipeResults.innerHTML += "<p>No recipes found.</p>";
+            } else {
+                const ul = document.createElement("ul");
+                recipes.forEach(function(recipe) {
+                    const li = document.createElement("li");
+                    li.textContent = recipe;
+                    li.href = "Insert link code here";
+                    ul.appendChild(li);
+                });
+                recipeResults.appendChild(ul);
+            }
+        }
+    </script>
+</body>
+</html>
