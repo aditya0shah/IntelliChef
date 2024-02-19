@@ -32,11 +32,7 @@ def create_recipe(ingrediants: str):
     {"role": "user", "content": ingrediants}
     ]
     )
-    print(response.choices[0].message.content)z
+    print(response.choices[0].message.content);
 
 
-<<<<<<< HEAD
 print(create_recipe("Sugar, Salt, Tomato, Butter, Paneer, Onion"))
-=======
-create_recipe("Bacon, Salt, Tomato, Paneer, Onion, Sugar, Milk, Coca Cola") 
->>>>>>> a96434ee67e0c6b350e4e7c39ee3e0c75e69f3fa
