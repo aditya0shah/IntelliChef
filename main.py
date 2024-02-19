@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, render_template, request, send_from_directory, jsonify
 from PIL import Image
 import datetime
 import os
@@ -13,15 +13,16 @@ app = Flask(__name__)
 @app.route("/home", methods=["GET", "POST"])
 def home_page():
     if request.method == 'POST':
-        form_type = request.form.get("form_type")
-        if form_type == "modify":
-            recipe_url = request.form.get("recipe_url")
-            query = request.form.get("query")
+        data = request.json
+        if data["form_type"] == "modify":
+            recipe_url = data["url"]
+            query = data["query"]
             upload_url(recipe_url)
-            print(modify_recipe(query))
-        if form_type == "generate":
-            ingredients = request.form.get("ingredients")
-            print(create_recipe(ingredients))
+            response = modify_recipe(query)
+        if data["form_type"] == "generate":
+            ingredients = ", ".join(data["ingredients"])
+            response = create_recipe(ingredients)
+        return jsonify({"response": response})
     return render_template("index.html")
 
 @app.route("/camera", methods=["GET", "POST"])

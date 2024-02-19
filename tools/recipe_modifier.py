@@ -39,20 +39,20 @@ def get_website_content(url):
 def upload_url(url: str):
     content = get_website_content(url)
     print(f"cleaned {content}")
-    print("done1")
+    # print("done1")
 
     text_splitter = RecursiveCharacterTextSplitter(chunk_size = 1000, chunk_overlap=150)
 
     texts = text_splitter.split_text(content)
 
-    print(f"split {texts}")
-    print("Done")
+    # print(f"split {texts}")
+    # print("Done")
     
     count = 0
     for text in texts:
-        print("hi")
+        # print("hi")
         embed_vector = embeddings.embed_query(text)
-        print(f"embed {embed_vector}")
+        # print(f"embed {embed_vector}")
         index.upsert(
             vectors=[
                 {
@@ -65,7 +65,7 @@ def upload_url(url: str):
             ], 
             namespace=namespace
         )
-        print(f"upserted {text}")
+        # print(f"upserted {text}")
         count+=1
 
 
@@ -109,6 +109,6 @@ def generate_recipes(contents: list[str], query:str):
 url = 'https://www.indianhealthyrecipes.com/paneer-tikka-on-stove-top/'
 
 # website_content = upload_url(url)
-modify_recipe("Replace the paneer with tofu")
+# modify_recipe("Replace the paneer with tofu")
 
 

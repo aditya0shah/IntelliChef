@@ -27,4 +27,4 @@ def create_recipe(ingrediants: str):
     return response.choices[0].message.content
 
 
-print(create_recipe("Sugar, Salt, Tomato, Butter, Paneer, Onion"))
+# print(create_recipe("Sugar, Salt, Tomato, Butter, Paneer, Onion"))

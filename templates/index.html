@@ -116,6 +116,7 @@
 	    };
 	    data.url = document.getElementById("website").value;
 	    data.query = document.getElementById("mods").value;
+        data.form_type = "modify"
 	    var xhr = new XMLHttpRequest();
     	    xhr.open("POST", "/home", true);
    	    xhr.setRequestHeader("Content-Type", "application/json");
@@ -146,6 +147,7 @@
             ingredients.forEach(function(i) {
 	    	data.ingredients.push(i);
 	    });
+        data.form_type = "generate"
 	    var xhr = new XMLHttpRequest();
     	    xhr.open("POST", "/home", true);
    	    xhr.setRequestHeader("Content-Type", "application/json");
