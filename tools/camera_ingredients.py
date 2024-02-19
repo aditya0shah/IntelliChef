@@ -36,5 +36,5 @@ def get_ingrediants_from_pic(image_path:str):
     ],
     max_tokens=1000
   )
-  return response
-print(get_ingrediants_from_pic(os.path.join(os.path.dirname(__file__), '../files/source-pics/pantry1.jpg')).choices[0].message.content)
+  return response.choices[0].message.content;
+# print(get_ingrediants_from_pic(os.path.join(os.path.dirname(__file__), '../files/source-pics/pantry1.jpg')).choices[0].message.content)

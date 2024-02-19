@@ -6,6 +6,7 @@ import base64
 from io import BytesIO
 from tools.recipe_modifier import upload_url, modify_recipe
 from tools.recipe_generation import create_recipe
+from tools.camera_ingredients import get_ingrediants_from_pic
 
 app = Flask(__name__)
 
@@ -42,6 +43,7 @@ def camera_view():
         file_path = os.path.join("files/", filename)
         img.save(file_path, 'PNG')
         error_message = 'Image successfully captured'
+        print(get_ingrediants_from_pic(file_path))
         # use if you want to display all the images in the folder
         # image_files = os.listdir(app.config['UPLOAD_FOLDER'])
         return render_template('camera_view.html', filename=filename)
