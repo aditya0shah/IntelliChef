@@ -1,6 +1,9 @@
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
+import requests
+import re
+from bs4 import BeautifulSoup
 
 load_dotenv()  
 
